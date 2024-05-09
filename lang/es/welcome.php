@@ -1,0 +1,5 @@
+<?php
+return [
+
+    'read' => 'leer'
+];
