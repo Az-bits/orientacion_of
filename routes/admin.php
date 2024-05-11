@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Route;
 /* init::Rutas del sistema de administración*/
 
 // Route::get('/test', [TestingController::class, 'index'])->name('/test');
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [PreguntaController::class, 'index'])->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 // Route::resource('admin/persona', PersonaController::class)->middleware(['auth'])->names('admin-persona');
 
@@ -27,6 +28,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('provincia', AreaController::class)->names('admin-provincia');
     Route::resource('municipio', AreaController::class)->names('admin-municipio');
     Route::resource('colegio', AreaController::class)->names('admin-colegio');
+
+    Route::get('baremo', [TestController::class, 'baremo'])->name('baremo');
+
 });
 
 /* end::Rutas del sistema de administración*/

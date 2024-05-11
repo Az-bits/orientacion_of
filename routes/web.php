@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\TestController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,13 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('Auth/login');
-})->name('/');
+Route::get('/', [TestController::class, 'main'])->name('/');
+Route::get('/test/{id}', [TestController::class, 'index'])->name('test');
+Route::post('/resultado', function () {
+    return view('frontend/template/result');
+})->name('resultado');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/', function () {
+//     return view('Auth/login');
+// })->name('/');
+
+// Route::get('/dashboard', function () {
+//     return view('admin');
+// })->middleware(['auth', 'verified'])->name('admin');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

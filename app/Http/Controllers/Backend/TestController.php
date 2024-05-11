@@ -101,10 +101,6 @@ class TestController extends Controller
         ];
         return response()->json($data, 200);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id = null)
     {
         //
@@ -123,5 +119,8 @@ class TestController extends Controller
             'status' => 200
         ];
         return response()->json($data, 200);
+    }
+    public function baremo($id = null){
+        return $this->render('baremo');
     }
 }
