@@ -9,7 +9,7 @@
     <title>
         Sistema OV | Login
     </title>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="canonical" href="https://www.creative-tim.com/product/material-dashboard-pro" />
 
@@ -37,7 +37,7 @@
     <meta property="og:description"
         content="Material Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you." />
     <meta property="og:site_name" content="Creative Tim" />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" type="text/css"
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
 

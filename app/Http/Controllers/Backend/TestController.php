@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\BaremoModel;
 use App\Models\TestModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -120,7 +121,19 @@ class TestController extends Controller
         ];
         return response()->json($data, 200);
     }
-    public function baremo($id = null){
-        return $this->render('baremo');
+    public function resultado()
+    {
+        dd($_POST);
+        // $baremo =  new BaremoModel();
+        // $this->data['baremo'] = $baremo->getBaremo();
+        // // dd($this->data['baremo']);
+        // return $this->render('test.baremo');
+    }
+    public function baremo($id = null)
+    {
+        $baremo =  new BaremoModel();
+        $this->data['baremo'] = $baremo->getBaremo();
+        // dd($this->data['baremo']);
+        return $this->render('test.baremo');
     }
 }

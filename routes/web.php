@@ -17,9 +17,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [TestController::class, 'main'])->name('/');
 Route::get('/test/{id}', [TestController::class, 'index'])->name('test');
-Route::post('/resultado', function () {
-    return view('frontend/template/result');
-})->name('resultado');
+Route::post('/resultado', [TestController::class, 'registrarRespuesta'])->name('resultado');
+Route::get('/registrarse', [TestController::class, 'registrarEstudiante'])->name('registrar');
+Route::post('/registrarse', [TestController::class, 'registrarEstudiante'])->name('registrar');
+Route::get('/buscarEstudiante/{ci}', [TestController::class, 'buscarEstudiante'])->name('buscar');
+Route::get('/getSelect/{tipo}/{id}', [TestController::class, 'getSelects'])->name('get-select');
+// Route::post('/resultado', function () {
+//     return view('frontend/template/result');
+// })->name('resultado');
 
 // Route::get('/', function () {
 //     return view('Auth/login');

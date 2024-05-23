@@ -42,7 +42,7 @@ class FrontendController extends BaseController
         // PersonaController
         // session(['menus' => MenuGenerator::generate()]);
     }
-    public function render($view)
+    public function render($view, $message = [])
     {
         $users = new User();
         $this->data['usuario'] = $users->getUsers(Auth::id());
@@ -64,7 +64,7 @@ class FrontendController extends BaseController
         $sistema = $this->sistema;
         $page = $this->page;
 
-        return view('frontend.' . $view, compact('data', 'title', 'sistema', 'menu', 'icon', 'page'));
+        return view('frontend.' . $view, compact('data', 'title', 'sistema', 'menu', 'icon', 'page', 'message'));
     }
 
     protected function menu()

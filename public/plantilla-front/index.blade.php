@@ -287,6 +287,7 @@
         </div>
         </div>
         </div>
+        modal
         <img width="300px" height="300px" src="{{ asset('assets/main/images/upeaLogo.png') }}"
             class="position-absolute top-45 left-100px lg-left-0px z-index-1 animation-float d-lg-block d-none" alt
             data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)"

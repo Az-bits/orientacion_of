@@ -77,7 +77,7 @@
                         <div class="dot-spinner__dot"></div>
                     </div>
                 </div>
-                <div class="table-responsive">
+                <div class="table-responsive az-table">
                     <table class="table table-flush az-table" style="width:100%" id="datatable" >
                         <thead class="thead-light">
                             <tr >

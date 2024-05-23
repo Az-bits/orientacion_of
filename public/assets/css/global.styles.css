@@ -1,5 +1,4 @@
-/*login*/
-.nav-item form {
+.login .nav-item form {
     margin: 0 1rem;
 }
 .nav-item form:hover {
@@ -353,11 +352,17 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
 .az-table thead tr th {
     text-transform: uppercase;
 }
-.table-responsive {
+.az-table {
     height: 0; /* Altura inicial */
     overflow: hidden; /* Oculta el contenido que excede la altura */
     transition: height 0.5s ease; /* Transición suave de la propiedad de altura durante 0.5 segundos */
 }
 .mostrar {
     height: auto; /* Cambia la altura a auto para mostrar el contenido */
+}
+.az-vertical {
+    /* display: block; */
+    margin-left: -7px;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
 }
