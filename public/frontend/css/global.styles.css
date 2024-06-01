@@ -100,11 +100,15 @@ h2.maquina .linea {
 /*end::menu principal*/
 
 /* Begin::Inscripción*/
-.az-contenedor h3 {
+.az-contenedor h3,
+.az-contenedor h4 {
     font-size: 1.75rem;
     text-align: center;
     font-weight: 600;
     margin: 0;
+}
+.az-contenedor h4 {
+    font-size: 1.5rem;
 }
 
 .az-contenedor p {
@@ -117,7 +121,7 @@ h2.maquina .linea {
     align-items: center;
     justify-content: center;
     font-family: "Montserrat", sans-serif;
-    height: (100vh + 1rem);
+    height: calc(100vh + 5rem);
     width: 100%;
     position: absolute;
 }
@@ -313,7 +317,7 @@ h2.maquina .linea {
     position: absolute;
     opacity: 0.2;
     width: 100%;
-    height: 100vh;
+    height: calc(100vh + 5rem);
 }
 
 .az-contenedor .form-select {
@@ -825,3 +829,81 @@ h2.maquina .linea {
     position: absolute !important;
 }
 /* End::TestSovi*/
+/* Begin::resultados */
+.table-bordered > :not(caption) > * > * {
+    padding: 1rem;
+    border-width: 0;
+}
+.az-info {
+    position: relative;
+    padding-left: 10px; /* Ajusta según sea necesario */
+    padding-right: 10px; /* Ajusta según sea necesario */
+}
+.az-info::before,
+.az-info::after {
+    content: "";
+    position: absolute;
+    width: 1px; /* Ancho del borde */
+    height: 10.5rem; /* Altura del borde */
+    background-color: #808080; /* Color del borde */
+}
+.az-info::before {
+    left: 0;
+    top: 50%; /* Centra verticalmente */
+    transform: translateY(-50%);
+}
+.az-info::after {
+    right: 0;
+    top: 50%; /* Centra verticalmente */
+    transform: translateY(-50%);
+}
+
+/* End::resultados */
+.az-resultados .title {
+    position: absolute;
+    z-index: 2;
+    bottom: 47rem;
+    font-size: 1.5rem;
+}
+.az-resultados .form-container {
+    width: 75rem;
+    padding-top: 8px;
+    top: 17rem;
+}
+
+@media (max-width: 1500px) {
+    .az-resultados .title {
+        bottom: 50rem;
+        font-size: 1.3rem;
+    }
+    .az-resultados .form-container {
+        width: 66rem;
+        left: 20rem;
+    }
+    .az-resultados {
+        height: calc(100vh + 20rem);
+    }
+    .table-bordered > :not(caption) > * > * {
+        padding: 0 10px 0 10px;
+    }
+    .az-contenedor img {
+        height: calc(100vh + 20rem);
+    }
+    .az-info::before,
+    .az-info::after {
+        height: 6rem; /* Altura del borde */
+    }
+    .az-table {
+        height: 42rem;
+    }
+}
+
+/* Tamaño extra grande (xl) */
+@media (min-width: 1500px) {
+    /* Estilos para dispositivos extra grandes y superiores */
+}
+.table-container {
+    height: inherit;
+    width: 100%; /* Ancho del contenedor, puedes ajustarlo según tus necesidades */
+    overflow: auto; /* Agrega scroll si es necesario */
+}

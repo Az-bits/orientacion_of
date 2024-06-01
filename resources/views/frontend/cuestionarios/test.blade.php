@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('plantilla-test/') }}/assets/css/style.css">
     <style>
         header .container-fluid {
-            background: linear-gradient(to left, #ff990014, #111217) !important;
+            background: #212330 !important;
             border-radius: 0 0 1rem 1rem;
         }
 

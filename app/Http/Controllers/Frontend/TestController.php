@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Http\Controllers\Backend\Territoriales\ProvinciaController;
 use App\Http\Controllers\FrontendController;
 use App\Models\BaremoModel;
 use App\Models\ColegioModel;
-use App\Models\DepartamentoModel;
-use App\Models\MunicipioModel;
 use App\Models\PersonaModel;
 use App\Models\PreguntaModel;
-use App\Models\ProvinciaModel;
 use App\Models\ResultadoModel;
+use App\Models\Territoriales\DepartamentoModel;
+use App\Models\Territoriales\MunicipioModel;
+use App\Models\Territoriales\ProvinciaModel ;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -38,6 +39,10 @@ class TestController extends FrontendController
         // $this->data['preguntas'] = PreguntaModel::where('estado', '1')->get();
         // var_dump($this->data['preguntas'][0]);
         return $this->render('index');
+    }
+    public function historialEstudiante()
+    {
+        return $this->render('historial');
     }
     public function registrarEstudiante(Request $request)
     {

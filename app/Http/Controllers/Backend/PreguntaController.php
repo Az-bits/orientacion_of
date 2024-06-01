@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Models\PreguntaModel;
 use App\Http\Controllers\Controller;
-use App\Models\AreaModel;
+use App\Models\CarrerasAreas\AreaModel;
 use App\Models\TestModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

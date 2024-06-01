@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\CarrerasAreas;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AreaModel extends Model
+class AreaExistenteModel extends Model
 {
     use HasFactory;
-    protected $table = 'areas';
-    protected $primaryKey = 'id_area';
+    protected $table = 'areas_existentes';
+    protected $primaryKey = 'id_area_existente';
     protected $fillable = ['nombre', 'estado', 'descripcion'];
     protected $guarded = [];
     public $timestamps = false;

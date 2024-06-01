@@ -15,6 +15,6 @@
                     spellcheck="false"></textarea>
                 <small>Error message</small>
             </div>
-
         </div>
+    </div>
 </form>

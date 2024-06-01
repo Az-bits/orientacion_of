@@ -1,9 +1,14 @@
 <?php
 
-use App\Http\Controllers\Backend\AreaController;
+use App\Http\Controllers\Backend\CarrerasAreas\AreaController;
+use App\Http\Controllers\Backend\CarrerasAreas\AreaExistenteController;
+use App\Http\Controllers\Backend\CarrerasAreas\CarreraController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PersonaController;
 use App\Http\Controllers\Backend\PreguntaController;
+use App\Http\Controllers\Backend\Territoriales\DepartamentoController;
+use App\Http\Controllers\Backend\Territoriales\MunicipioController;
+use App\Http\Controllers\Backend\Territoriales\ProvinciaController;
 use App\Http\Controllers\Backend\TestController;
 // use App\Http\Controllers\TestingController;
 use Illuminate\Support\Facades\Route;
@@ -22,15 +27,20 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('sovi3', PersonaController::class)->names('admin-sovi3');
     Route::resource('test', TestController::class)->names('admin-test');
     Route::resource('pregunta', PreguntaController::class)->names('admin-pregunta');
-    Route::resource('area', AreaController::class)->names('admin-area');
 
-    Route::resource('departamento', AreaController::class)->names('admin-departamento');
-    Route::resource('provincia', AreaController::class)->names('admin-provincia');
-    Route::resource('municipio', AreaController::class)->names('admin-municipio');
+    Route::resource('estudiante', PreguntaController::class)->names('admin-estudiante');
+    Route::resource('respuesta', PreguntaController::class)->names('admin-respuesta');
+
+    Route::resource('departamento', DepartamentoController::class)->names('admin-departamento');
+    Route::resource('provincia', ProvinciaController::class)->names('admin-provincia');
+    Route::resource('municipio', MunicipioController::class)->names('admin-municipio');
     Route::resource('colegio', AreaController::class)->names('admin-colegio');
 
-    Route::get('baremo', [TestController::class, 'baremo'])->name('baremo');
+    Route::resource('area', AreaController::class)->names('admin-area');
+    Route::resource('carrera', CarreraController::class)->names('admin-carrera');
+    Route::resource('area-existente', AreaExistenteController::class)->names('admin-area-existente');
 
+    Route::get('baremo', [TestController::class, 'baremo'])->name('baremo');
 });
 
 /* end::Rutas del sistema de administración*/

@@ -366,3 +366,10 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
     writing-mode: vertical-lr;
     transform: rotate(180deg);
 }
+/* Tamaño grande (lg) */
+.swal2-title {
+    text-align: center !important;
+}
+.swal2-html-container {
+    text-align: center !important;
+}

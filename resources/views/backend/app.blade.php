@@ -176,9 +176,9 @@
             </div>
         </div>
     </div> --}}
-
     <script src="{{ asset('material-dashboard/assets/js/core/jquery.min.js') }}"></script>
     <script src="{{ asset('material-dashboard/assets/js/core/popper.min.js') }}"></script>
+    <script src="{{ asset('material-dashboard/assets/js/plugins/sweetalert.min.js') }}"></script>
     <script src="{{ asset('material-dashboard/assets/js/core/bootstrap.min.js') }}"></script>
     <script src="{{ asset('material-dashboard/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('material-dashboard/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
@@ -186,7 +186,6 @@
     <script src="{{ asset('material-dashboard/assets/js/plugins/datatables.responsive.js') }}"></script>
     {{-- <script src="{{ asset('material-dashboard/assets/js/plugins/jquery.dataTables.min.js') }}"></script> --}}
     <script src="{{ asset('material-dashboard/assets/js/plugins/choices.min.js') }}"></script>
-    <script src="{{ asset('material-dashboard/assets/js/plugins/sweetalert.min.js') }}"></script>
     <script src="{{ asset('material-dashboard/assets/js/plugins/fullcalendar.min.js') }}"></script>
 
     <script src="{{ asset('material-dashboard/assets/js/plugins/dragula/dragula.min.js') }}"></script>
@@ -522,11 +521,12 @@
 
     <script src="{{ asset('assets/js/global.scripts.js') }}"></script>
     <script src="{{ asset('backend/js/components/alerts.js') }}"></script>
-    @if ($page && $page !== 'dashboard')
+    @if ($pageURL)
         {{-- @vite('public/backend/js/' . $page . '/index.js') --}}
+        <script src="{{ asset('backend/js/' . $pageURL . '/index.js') }}" type="module"></script>
+    @elseif($page && $page !== 'dashboard')
         <script src="{{ asset('backend/js/' . $page . '/index.js') }}" type="module"></script>
     @endif
-
 </body>
 
 </html>

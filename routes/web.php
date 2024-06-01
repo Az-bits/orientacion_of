@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [TestController::class, 'main'])->name('/');
 Route::get('/test/{id}', [TestController::class, 'index'])->name('test');
+Route::get('/historial', [TestController::class, 'historialEstudiante'])->name('historial');
 Route::post('/resultado', [TestController::class, 'registrarRespuesta'])->name('resultado');
 Route::get('/registrarse', [TestController::class, 'registrarEstudiante'])->name('registrar');
 Route::post('/registrarse', [TestController::class, 'registrarEstudiante'])->name('registrar');

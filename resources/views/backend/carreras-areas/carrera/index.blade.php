@@ -5,16 +5,16 @@
             <div class="card-header pb-0">
                 <div class="d-lg-flex">
                     <div>
-                        <h5 class="mb-0">Lista de Areas</h5>
+                        <h5 class="mb-0">Lista de Carreras</h5>
                         <p class="text-sm mb-0">
-                            Listado de areas registradas.
+                            Listado de carreras registradas.
                         </p>
                     </div>
                     <div class="ms-auto my-auto mt-lg-0 mt-4">
                         <div class="ms-auto my-auto">
                             <button id="btn-new" type="button" class="btn bg-gradient-primary btn-sm mb-0" target="_blank"
                                 data-bs-toggle="modal" data-bs-target="#modal-main">+&nbsp;
-                                Nueva Test</button>
+                                Nueva Carrera</button>
                         </div>
                     </div>
                 </div>
@@ -37,9 +37,10 @@
                         <thead class="thead-light">
                             <tr>
                                 <th>id</th>
-                                <th>titulo</th>
-                                <th>estado</th>
-                                <th>acción</th>
+                                <th>Carrera</th>
+                                <th>Area</th>
+                                <th>Area UPEA</th>
+                                <th>accion</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,5 +50,5 @@
             </div>
         </div>
     </div>
-    @include('backend.area.modal')
+    @include('backend.carreras-areas.carrera.modal')
 @endsection

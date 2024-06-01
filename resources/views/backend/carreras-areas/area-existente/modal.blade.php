@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body pt-1">
-                @include('backend.area.form')
+                @include('backend.carreras-areas.area.form')
             </div>
             <div class="modal-footer">
                 <button id="btn-cancel" type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal"><i

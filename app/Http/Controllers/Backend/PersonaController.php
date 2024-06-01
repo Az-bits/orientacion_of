@@ -167,7 +167,7 @@ class PersonaController extends Controller
             return response()->json($data, 400);
         }
         $persona->update([
-            'nombre' => $request->nombre,
+            'nombre' => $request->nombre, //eliminar espacios
             'paterno' => $request->paterno,
             'materno' => $request->materno,
             'ci' => $request->ci,

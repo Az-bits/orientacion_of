@@ -1,5 +1,5 @@
 az = {
-    showSwal: function (e, url) {
+    showSwal: function (e, url, message) {
         if ("basic" == e) {
             let t = Swal.mixin({
                 customClass: { confirmButton: "btn bg-gradient-info" },
@@ -19,9 +19,14 @@ az = {
                 imageWidth: 400,
                 imageAlt: "Custom image",
             });
-        } else if ("success-message" == e)
-            Swal.fire("Good job!", "You clicked the button!", "success");
-        else if ("warning-message-and-confirmation" == e) {
+        } else if ("success-message" == e) {
+            Swal.fire({
+                title: "¡Éxito!",
+                text: message,
+                icon: "success",
+                // timer: 2000,
+            });
+        } else if ("warning-message-and-confirmation" == e) {
             let i = Swal.mixin({
                 customClass: {
                     confirmButton: "btn bg-gradient-success",

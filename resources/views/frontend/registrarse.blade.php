@@ -155,7 +155,7 @@
                     icon: "success"
                 });
 
-            }, 1000);
+            }, 500);
         });
     </script>
 @endsection

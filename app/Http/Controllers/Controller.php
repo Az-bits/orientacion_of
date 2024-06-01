@@ -30,6 +30,7 @@ class Controller extends BaseController
     public $data = [];
     public $title = null;
     public $page = null;
+    public $pageURL = null;
     public $sistema = 'Sistema Test O.V.';
     public function __construct()
     {
@@ -63,8 +64,9 @@ class Controller extends BaseController
         $data = $this->data;
         $sistema = $this->sistema;
         $page = $this->page;
+        $pageURL = $this->pageURL;
 
-        return view('backend.' . $view, compact('data', 'title', 'sistema', 'menu', 'icon', 'page'));
+        return view('backend.' . $view, compact('data', 'title', 'sistema', 'menu', 'icon', 'page', 'pageURL'));
     }
 
     protected function menu()
@@ -87,23 +89,34 @@ class Controller extends BaseController
             // "Cuenta Usuarios" => [
             //     "Formularios" => "80",
             // ],
-            // "panel principal" => 'dashboard',
+            "panel principal" => 'dashboard',
+            "estudiantes" => 'admin-estudiante',
             "preguntas" => 'admin-pregunta',
-            "areas" => 'admin-area',
+            "respuestas" => 'admin-respuesta',
 
             // "administración" => [
             //     "usuarios" => "dashboard",
             //     // "roles" => "admin-persona",
             // ],
-            // "entidades" => [
-            //     "usuarios" => "dashboard",
-            //     // "roles" => "admin-persona",
-            // ],
+
             "tests" => [
                 // "Sovi 3" => "admin-sovi3",
                 "Tests" => "admin-test",
                 // "roles" => "admin-persona",
             ],
+            "areas carreras" => [
+                "carreras" => "admin-carrera",
+                "areas existentes" => "admin-area-existente",
+                "areas" => "admin-area",
+                // "roles" => "admin-persona",
+            ],
+            "gestión territorial" => [
+                "Departamentos" => "admin-departamento",
+                "Provincias" => "admin-provincia",
+                "Municipios" => "admin-municipio",
+                // "roles" => "admin-persona",
+            ],
+            "baremo" => 'baremo',
             "personas" => 'admin-persona',
 
             // '<hr>',
@@ -122,12 +135,17 @@ class Controller extends BaseController
             // 'titulo vista' =>'icono'
             'panel principal' => 'dashboard',
             'marines' => 'image',
+            'estudiantes' => 'group_add',
+            'respuestas' => 'fact_check',
             'personas' => 'person',
             'preguntas' => 'task_alt',
             'administración' => 'manage_accounts',
             'areas' => 'library_add',
             'entidades' => 'location_city',
-            "tests" => 'app_registration'
+            "tests" => 'app_registration',
+            "gestión territorial" => 'public',
+            "areas carreras" => 'school',
+            "baremo" => 'format_list_numbered'
         ];
         return $iconos;
     }

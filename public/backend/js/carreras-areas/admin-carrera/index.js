@@ -22,14 +22,14 @@ $(document).ready(function () {
     btnState = {
         id: null,
         add: function () {
-            modalTitle.text("nuevo area");
+            modalTitle.text("nueva carrera");
             btnSubmit.removeAttr("data-id", id);
             utilities.resetForm(form);
             btnSubmit.prop("disabled", false);
             this.id = null;
         },
         edit: function (id) {
-            modalTitle.text("editar area");
+            modalTitle.text("editar carrera");
             utilities.resetForm(form);
             this.id = id;
             btnSubmit.prop("disabled", false);
@@ -48,27 +48,20 @@ $(document).ready(function () {
         ],
         pagingType: "full_numbers",
         ajax: {
-            url: "/admin/area",
+            url: "/admin/carrera",
         },
         columns: [
-            { data: "id_area" },
-            { data: "nombre" },
+            { data: "id_carrera" },
+            { data: "carrera" },
+            { data: "area" },
+            { data: "area_existente" },
             {
                 data: null,
                 targets: -1,
                 orderable: false,
                 render: function (data, type, row) {
-                    // console.log(row);
-                    return _ESTADO(row.estado);
-                },
-            },
-            {
-                data: null,
-                targets: -1,
-                orderable: false,
-                render: function (data, type, row) {
-                    // console.log(row);
-                    return _ACTIONS("area", row.id_area);
+                    // console.log(data);
+                    return _ACTIONS("carrera", row.id_carrera);
                 },
             },
         ],
@@ -88,7 +81,7 @@ $(document).ready(function () {
     });
     table.on("click", ".delete", function () {
         let id = $(this).data("id");
-        az.showSwal("warning-message-delete", `/admin/area/${id}`);
+        az.showSwal("warning-message-delete", `/admin/carrera/${id}`);
     });
     btnNew.on("click", function (e) {
         btnState.add();
@@ -97,23 +90,26 @@ $(document).ready(function () {
         let id = btnState.id;
         btnSubmit.prop("disabled", true);
         if (!id) {
-            saveRegister("/admin/area", "POST");
+            saveRegister("/admin/carrera", "POST");
         } else {
-            saveRegister(`/admin/area/${id}`, "PUT");
+            saveRegister(`/admin/carrera/${id}`, "PUT");
         }
     });
     function edit(id, table) {
-        let reg = utilities.getByID(id, table, "id_area");
+        let reg = utilities.getByID(id, table, "id_carrera");
+        console.log(reg);
         modalEl.modal("show");
         utilities.reloadStyle();
         $("form#form-main :input").each(function () {
             let name = $(this).attr("name");
             if ($(this).prop("tagName") === "SELECT") {
-                // console.log(choiceInstances);
+                console.log(choiceInstances);
                 let choice = choiceInstances.filter(
                     (elemento) => elemento._baseId === "choices--" + name
                 );
-                choice[0].setChoiceByValue(reg[name]);
+                choice[0].setChoiceByValue(`${reg[name]}`);
+            } else if ($(this).prop("type") === "file") {
+                console.log("FILE");
             } else {
                 $(this).parent().addClass("is-filled");
                 $(this).val(reg[name]);
@@ -127,8 +123,10 @@ $(document).ready(function () {
             url,
             data: form.serialize(),
             success: (d) => {
+                console.log(d);
                 modalEl.modal("hide");
                 $("#datatable").DataTable().ajax.reload();
+                az.showSwal("success-message", null, d.message);
             },
             error: function (data) {
                 btnSubmit.prop("disabled", false);

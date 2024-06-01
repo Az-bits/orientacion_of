@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Backend\CarrerasAreas;
 
 use App\Http\Controllers\Controller;
-use App\Models\AreaModel;
+use App\Models\CarrerasAreas\AreaModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -18,6 +18,7 @@ class AreaController extends Controller
     {
         $this->title = 'Areas';
         $this->page = 'admin-area';
+        $this->pageURL = 'carreras-areas\admin-area';
     }
     public function index()
     {
@@ -26,12 +27,12 @@ class AreaController extends Controller
         if (request()->ajax()) {
             return response()->json(['data' => $data], 200);
         }
-        return $this->render("area.index");
+        return $this->render("carreras-areas.area.index");
     }
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|unique:areas,nombre',
+            'nombre' => 'required|unique:areas_existentes,nombre',
         ]);
         if ($validator->fails()) {
             $data = [
@@ -54,6 +55,7 @@ class AreaController extends Controller
         }
         $data = [
             'area' => $area,
+            'message' => 'Area registrada exitosamente',
             'status' => 201
         ];
         return response()->json($data, 201);
@@ -73,7 +75,7 @@ class AreaController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => [
                 'required',
-                Rule::unique('areas')->ignore($area->id_area, 'id_area'),
+                Rule::unique('areas_existentes')->ignore($area->id_area_existente, 'id_area_existente'),
             ],
         ]);
         if ($validator->fails()) {
