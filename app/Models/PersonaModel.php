@@ -25,6 +25,6 @@ class PersonaModel extends Model
                 DB::raw("CONCAT(p.paterno, ' ', p.materno) as apellidos")
             )
             ->where('p.ci', $ci)  // Asegúrate de que la columna 'ci' se refiera a la tabla correcta.
-            ->first() ? 1 : 0;
+            ->first();
     }
 }

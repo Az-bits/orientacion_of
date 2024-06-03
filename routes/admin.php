@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\CarrerasAreas\AreaController;
 use App\Http\Controllers\Backend\CarrerasAreas\AreaExistenteController;
 use App\Http\Controllers\Backend\CarrerasAreas\CarreraController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\EstudianteController;
 use App\Http\Controllers\Backend\PersonaController;
 use App\Http\Controllers\Backend\PreguntaController;
 use App\Http\Controllers\Backend\Territoriales\DepartamentoController;
@@ -28,7 +29,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('test', TestController::class)->names('admin-test');
     Route::resource('pregunta', PreguntaController::class)->names('admin-pregunta');
 
-    Route::resource('estudiante', PreguntaController::class)->names('admin-estudiante');
+    Route::resource('estudiante', EstudianteController::class)->names('admin-estudiante');
     Route::resource('respuesta', PreguntaController::class)->names('admin-respuesta');
 
     Route::resource('departamento', DepartamentoController::class)->names('admin-departamento');

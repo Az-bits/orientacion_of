@@ -9,10 +9,10 @@ export function _ACTIONS(name = "", id = null) {
             data-bs-original-title="Editar ${name}">
             <i class="material-icons text-warning position-relative text-lg">drive_file_rename_outline</i>
         </a>
-        <a data-id="${id}" href="javascript:;" class="ms-3 delete" data-bs-toggle="tooltip"
+        <!--<a data-id="${id}" href="javascript:;" class="ms-3 delete" data-bs-toggle="tooltip"
             data-bs-original-title="Eliminar ${name}">
             <i class="material-icons text-danger position-relative text-lg">delete</i>
-        </a>
+        </a>-->
     </td>
     `;
 }

@@ -52,7 +52,8 @@ $(document).ready(function () {
         },
         columns: [
             { data: "id_estudiante" },
-            { data: "estudiante" },
+            { data: "ci" },
+            { data: "nombre_completo" },
             { data: "colegio" },
             {
                 data: null,
@@ -60,16 +61,7 @@ $(document).ready(function () {
                 orderable: false,
                 render: function (data, type, row) {
                     // console.log(row);
-                    return _ESTADO(row.estado);
-                },
-            },
-            {
-                data: null,
-                targets: -1,
-                orderable: false,
-                render: function (data, type, row) {
-                    // console.log(row);
-                    return _ACTIONS("test", row.id_test);
+                    return _ACTIONS("estudiante", row.id_estudiante);
                 },
             },
         ],
@@ -89,7 +81,7 @@ $(document).ready(function () {
     });
     table.on("click", ".delete", function () {
         let id = $(this).data("id");
-        az.showSwal("warning-message-delete", `/admin/test/${id}`);
+        az.showSwal("warning-message-delete", `/admin/estudiante/${id}`);
     });
     btnNew.on("click", function (e) {
         btnState.add();
@@ -98,15 +90,15 @@ $(document).ready(function () {
         let id = btnState.id;
         btnSubmit.prop("disabled", true);
         if (!id) {
-            saveRegister("/admin/test", "POST");
+            saveRegister("/admin/estudiante", "POST");
         } else {
-            saveRegister(`/admin/test/${id}`, "PUT");
+            saveRegister(`/admin/estudiante/${id}`, "PUT");
         }
     });
     function edit(id, table) {
-        console.log(table);
-        let reg = utilities.getByID(id, table, "id_test");
-        console.log(reg);
+        // console.log(table);
+        let reg = utilities.getByID(id, table, "id_estudiante");
+        // console.log(reg);
         modalEl.modal("show");
         utilities.reloadStyle();
         $("form#form-main :input").each(function () {
@@ -116,7 +108,7 @@ $(document).ready(function () {
                 let choice = choiceInstances.filter(
                     (elemento) => elemento._baseId === "choices--" + name
                 );
-                choice[0].setChoiceByValue(reg[name]);
+                choice[0].setChoiceByValue(`${reg[name]}`);
             } else {
                 $(this).parent().addClass("is-filled");
                 $(this).val(reg[name]);

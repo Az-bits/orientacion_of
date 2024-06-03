@@ -17,22 +17,21 @@
                                 <span>Test de</span><br class="az-span" />
                                 <span>Orientación</span><br />
                                 <span>Vocacional</span><br class="az-span" />
-                                <span>CHASIDES</span><br />
+                                {{-- <span>CHASIDES</span><br /> --}}
                             </span>
                         </h2>
                     </div>
                     <div class="fs-21 lh-32 lg-w-90 mx-auto az-text-banner w-65">
-                        El Test de Orientación Vocacional CHASIDE es una herramienta de
-                        autoevaluación que ayuda a elegir una carrera universitaria
-                        adecuada, evaluando aptitudes, habilidades y clasificando áreas
-                        del conocimiento. Su objetivo es facilitar una elección
-                        profesional sin complicaciones futuras.
+                        El Cuestionario de Intereses Profesionales (CIP-R) contiene 114 preguntas acerca de las Carreras que
+                        debes responder según tu agrado, desagrado o indiferencia.
                     </div>
                     <div class="mt-35px position-relative z-index-9">
                         <a href="javascript:void(0)"
                             class="btn btn-white fw-700 btn-extra-large btn-rounded btn-switch-text ls-0px  btn-box-shadow mb-0 xs-mb-20px me-15px open">
                             <span>
-                                <span class="btn-double-text" data-text="Test Sovi 3">Test Sovi 3</span>
+                                <span class="btn-double-text"
+                                    data-text="Cuestionario de Intereses Profesionales">Cuestionario de Intereses
+                                    Profesionales</span>
                             </span>
                         </a>
                         <a href="javascript:void(0)"
@@ -65,7 +64,7 @@
             class="position-absolute top-45 left-100px lg-left-0px z-index-1 animation-float d-lg-block d-none" alt
             data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)"
             style="bottom: 9rem;" />
-        <img width="300px" height="300px" src="{{ asset('assets/main/images/logo-sie.png') }}"
+        <img width="300px" height="300px" src="{{ asset('assets/main/images/logo-edu.jpg') }}"
             class="position-absolute top-45 left-100px lg-left-0px z-index-1 animation-float d-lg-block d-none" alt
             data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)"
             style="bottom: 9rem; left: 89rem;" />

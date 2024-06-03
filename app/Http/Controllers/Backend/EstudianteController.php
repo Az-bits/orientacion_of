@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\ColegioModel;
 use App\Models\EstudianteModel;
+use App\Models\PersonaModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -19,7 +22,17 @@ class EstudianteController extends Controller
     {
         /* init::Listar personas */
 
-        $data = EstudianteModel::select('*')->selectRaw("CONCAT_WS(' ', nombre, paterno, IFNULL(materno, '')) as nombre_completo")->where('estado', '1')->orderBy('id_persona', 'desc')->get();
+        $data = EstudianteModel::select('*')
+            ->selectRaw("CONCAT_WS(' ', p.nombre, p.paterno, IFNULL(p.materno, '')) as nombre_completo")
+            ->selectRaw("CONCAT_WS(' ', p.paterno, IFNULL(p.materno, '')) as apellidos")
+            ->from('estudiantes as e')
+            ->where('e.estado', '1')
+            ->leftJoin('personas as p', 'p.id_persona', '=', 'e.id_persona')
+            ->leftJoin('colegios as c', 'c.id_colegio', '=', 'e.id_colegio')
+            ->orderBy('e.id_estudiante', 'desc')
+            ->get();
+
+        $this->data['colegios'] = ColegioModel::where('estado', '1')->get();
         if (request()->ajax()) {
             return response()->json(['data' => $data], 200);
         }
@@ -34,21 +47,19 @@ class EstudianteController extends Controller
     public function store(Request $request)
     {
         /* init::Guardar estudiante */
-        // dd($_POST);
         $validator = Validator::make($request->all(), [
             'ci' => 'required|unique:personas,ci',
+            'celular' => 'nullable|numeric|digits:8',
             'nombre' => 'required',
-            'paterno' => 'required',
-            'celular' => 'required|numeric|digits:8',
-            'genero' => 'required',
-            'complemento' => 'max:5',
-            'correo' => 'nullable|email',
+            'apellidos' => 'required',
+            'edad' => 'required|max:2',
+            'id_colegio' => 'required',
         ], [
-            'ci.required' => 'Campo cedula es requerido',
-            'ci.unique' => 'La cedula ya ha sido tomado.',
-            'expedido.required' => 'Campo requerido',
-            'complemento.max' => 'Máximo 5 caracteres',
+            'ci.required' => 'Campo cédula es requerido',
+            'id_colegio.required' => 'Campo colegio es requerido',
+            'ci.unique' => 'La cédula ya ha sido registrado anteriormente.',
         ]);
+
         if ($validator->fails()) {
             $data = [
                 'message' => 'Error en la validación de los datos',
@@ -57,18 +68,21 @@ class EstudianteController extends Controller
             ];
             return response()->json($data, 400);
         }
-        $estudiante = EstudianteModel::create([
+        $apellidos = explode(' ', $request->apellidos);
+        $persona = PersonaModel::create([
+            'ci' => trim($request->ci),
             'nombre' => $request->nombre,
-            'paterno' => $request->paterno,
-            'materno' => $request->materno,
-            'ci' => $request->ci,
-            'fecha_nac' => $request->fecha_nac,
+            'paterno' => $apellidos[0],
+            'materno' => isset($apellidos[1]) ? $apellidos[1] : '',
             'celular' => $request->celular,
-            'direccion' => $request->direccion,
-            'expedido' => $request->expedido,
             'genero' => $request->genero,
-            'correo' => $request->correo,
-            'complemento' => $request->complemento,
+        ]);
+        $estudiante =  DB::table('estudiantes')->insertGetId([
+            'id_colegio' => $request->id_colegio,
+            'edad' => $request->edad,
+            'id_persona' => $persona->id_persona,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
         if (!$estudiante) {
             $data = [
@@ -111,6 +125,7 @@ class EstudianteController extends Controller
     public function update(Request $request, $id)
     {
         $estudiante = EstudianteModel::find($id);
+        $persona = PersonaModel::find($estudiante->id_persona);
         if (!$estudiante) {
             $data = [
                 'message' => 'Estudiante no encontrado',
@@ -122,20 +137,18 @@ class EstudianteController extends Controller
         $validator = Validator::make($request->all(), [
             'ci' => [
                 'required',
-                Rule::unique('estudiantes')->ignore($estudiante->id_estudiante, 'id_estudiante'),
+                Rule::unique('personas')->ignore($persona->id_persona, 'id_persona'),
             ],
+            'celular' => 'nullable|numeric|digits:8',
             'nombre' => 'required',
-            'paterno' => 'required',
-            // 'celular' => 'required|numeric|digits:8',
-            'genero' => 'required',
-            'complemento' => 'max:5',
-            'correo' => 'nullable|email',
+            'apellidos' => 'required',
+            'edad' => 'required|max:2',
+            'id_colegio' => 'required',
 
         ], [
-            'ci.required' => 'Campo cedula es requerido',
-            'ci.unique' => 'La cedula ya ha sido tomado.',
-            'expedido.required' => 'Campo requerido',
-            'complemento.max' => 'Máximo 5 caracteres',
+            'ci.required' => 'Campo cédula es requerido',
+            'id_colegio.required' => 'Campo colegio es requerido',
+            'ci.unique' => 'La cédula ya ha sido registrado anteriormente.',
         ]);
         if ($validator->fails()) {
             $data = [
@@ -145,28 +158,32 @@ class EstudianteController extends Controller
             ];
             return response()->json($data, 400);
         }
-        $estudiante->update([
-            'nombre' => $request->nombre, //eliminar espacios
-            'paterno' => $request->paterno,
-            'materno' => $request->materno,
-            'ci' => $request->ci,
-            'fecha_nac' => $request->fecha_nac,
+        $apellidos = explode(' ', $request->apellidos);
+
+        $personaID = $persona->update([
+            'ci' => trim($request->ci),
+            'nombre' => $request->nombre,
+            'paterno' => $apellidos[0],
+            'materno' => isset($apellidos[1]) ? $apellidos[1] : '',
             'celular' => $request->celular,
-            'direccion' => $request->direccion,
-            'expedido' => $request->expedido,
             'genero' => $request->genero,
-            'correo' => $request->correo,
-            'complemento' => $request->complemento,
         ]);
-        if (!$estudiante) {
-            $data = [
-                'message' => 'Error al actualizar',
-                'status' => 500
-            ];
-            return response()->json($data, 500);
-        }
+        $estudiante = DB::table('estudiantes')
+            ->where('id_estudiante', $id)
+            ->update([
+                'id_colegio' => $request->id_colegio,
+                'edad' => $request->edad,
+                'id_persona' => $persona->id_persona,
+            ]);
+        // if (!$estudiante) {
+        //     $data = [
+        //         'message' => 'Error al actualizar',
+        //         'status' => 500
+        //     ];
+        //     return response()->json($data, 500);
+        // }
         $data = [
-            'message' => 'Estudiante actualizada executad',
+            'message' => 'Estudiante actualizada exitosamente.',
             'estudiante' => $estudiante,
             'status' => 200
         ];

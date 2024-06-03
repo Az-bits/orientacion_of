@@ -350,7 +350,8 @@ h2.maquina .linea {
     }
 
     .az-contenedor .form-container {
-        top: 10rem !important;
+        top: 27rem !important;
+        left: 5rem;
     }
 }
 
@@ -868,20 +869,23 @@ h2.maquina .linea {
 .az-resultados .form-container {
     width: 75rem;
     padding-top: 8px;
-    top: 17rem;
+    top: 2rem;
 }
 
 @media (max-width: 1500px) {
     .az-resultados .title {
-        bottom: 50rem;
+        bottom: 83rem;
         font-size: 1.3rem;
+        color: #dfdcdc;
+        padding: 1rem;
     }
     .az-resultados .form-container {
         width: 66rem;
-        left: 20rem;
+        /* left: 20rem; */
+        left: 2rem;
     }
     .az-resultados {
-        height: calc(100vh + 20rem);
+        height: calc(100vh + 40rem);
     }
     .table-bordered > :not(caption) > * > * {
         padding: 0 10px 0 10px;
@@ -895,6 +899,7 @@ h2.maquina .linea {
     }
     .az-table {
         height: 42rem;
+        overflow-x: auto;
     }
 }
 

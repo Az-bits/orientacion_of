@@ -1,0 +1,18 @@
+[2024-05-31 22:08:31] local.ERROR: Command "install" is not defined.
+
+Did you mean one of these?
+    breeze:install
+    migrate:install
+    sail:install {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"install\" is not defined.
+
+Did you mean one of these?
+    breeze:install
+    migrate:install
+    sail:install at /var/www/orientacion1/vendor/symfony/console/Application.php:737)
+[stacktrace]
+#0 /var/www/orientacion1/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find()
+#1 /var/www/orientacion1/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun()
+#2 /var/www/orientacion1/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run()
+#3 /var/www/orientacion1/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle()
+#4 {main}
+"} 

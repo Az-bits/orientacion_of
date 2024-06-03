@@ -89,10 +89,10 @@ class Controller extends BaseController
             // "Cuenta Usuarios" => [
             //     "Formularios" => "80",
             // ],
-            "panel principal" => 'dashboard',
+            // "panel principal" => 'dashboard',
             "estudiantes" => 'admin-estudiante',
             "preguntas" => 'admin-pregunta',
-            "respuestas" => 'admin-respuesta',
+            // "respuestas" => 'admin-respuesta',
 
             // "administración" => [
             //     "usuarios" => "dashboard",
