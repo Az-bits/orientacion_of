@@ -2,17 +2,6 @@
 .az-span {
     display: none;
 }
-/* h2.maquina {
-    overflow: hidden;
-    white-space: nowrap;
-    width: 0;
-    animation: maquina-escribir 3.5s linear infinite;
-} */
-/* h2.maquina .linea {
-    display: inline-block;
-    width: 0;
-    animation: linea-escribir 3.5s linear infinite;
-} */
 h2.maquina {
     overflow: hidden;
     white-space: nowrap;
@@ -23,12 +12,19 @@ h2.maquina .linea {
     display: inline-block;
     width: 0;
     overflow: hidden;
-    /* animation: maquina-escribir 3.5s linear forwards; */
-    /* Se ejecuta una vez y se mantiene en el estado final */
     animation: maquina-escribir 3.5s linear infinite;
-    /* Se ejecuta una vez y se mantiene en el estado final */
 }
-
+.banner-content {
+    background-image: radial-gradient(
+        at center bottom,
+        rgba(255, 129, 55, 0.67) 0%,
+        rgba(255, 230, 55, 0) 84%,
+        rgb(3, 5, 16) 100%
+    );
+}
+.az-text-banner {
+    color: #dcd0d0;
+}
 @keyframes maquina-escribir {
     0% {
         width: 0;
@@ -68,38 +64,22 @@ h2.maquina .linea {
         opacity: 100%;
     }
 }
-@media (max-width: 992px) {
-    .mobile-logo {
-        width: 4rem !important;
-        height: 4rem !important;
-    }
 
-    .az-bottom-0px {
-        bottom: 19rem !important;
-        left: 8rem;
-        opacity: 0.3;
-    }
-
-    .az-text-banner {
-        color: rgb(182, 175, 175);
-    }
-
-    .az-span {
-        display: block;
-    }
+.btn.btn-switch-text.btn-extra-large > span {
+    padding: 12px 14px;
 }
-
-.banner-content {
-    background-image: radial-gradient(
-        at center bottom,
-        rgba(255, 129, 55, 0.67) 0%,
-        rgba(255, 230, 55, 0) 84%,
-        rgb(3, 5, 16) 100%
-    );
+.btn.btn-white {
+    /* background-color: #ffffffc7; */
 }
 /*end::menu principal*/
 
 /* Begin::Inscripción*/
+.az-h5 {
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 600;
+    margin: 0;
+}
 .az-contenedor h3,
 .az-contenedor h4 {
     font-size: 1.75rem;
@@ -116,18 +96,19 @@ h2.maquina .linea {
 }
 
 .az-contenedor {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: "Montserrat", sans-serif;
-    height: calc(100vh + 5rem);
+    height: calc(100vh + 20rem);
     width: 100%;
     position: absolute;
+    overflow: hidden;
 }
 
 .az-contenedor .form-container {
     position: absolute;
+    top: 3rem;
     width: 400px;
     background: linear-gradient(#212121, #212121) padding-box,
         linear-gradient(145deg, transparent 35%, #ff9900, #ffa64d) border-box;
@@ -245,7 +226,8 @@ h2.maquina .linea {
     border-color: #fff;
 }
 
-.az-contenedor button {
+.az-contenedor button,
+.az-contenedor a {
     font-family: inherit;
     font-size: 18px;
     background: #313131;
@@ -260,7 +242,8 @@ h2.maquina .linea {
     transition: all 0.3s;
 }
 
-.az-contenedor button:hover {
+.az-contenedor button:hover,
+.az-contenedor a:hover {
     font-family: inherit;
     font-size: 18px;
     background: #313131;
@@ -344,17 +327,6 @@ h2.maquina .linea {
 .az-contenedor img {
     user-select: none;
 }
-@media (max-width: 767px) {
-    .az-contenedor {
-        min-height: 100vh;
-    }
-
-    .az-contenedor .form-container {
-        top: 27rem !important;
-        left: 5rem;
-    }
-}
-
 .az-contenedor .styled-icon {
     font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
     width: 24px;
@@ -415,6 +387,22 @@ h2.maquina .linea {
 }
 .az-contenedor .nav-link.active {
     color: #ffa54d !important;
+}
+@media (max-width: 767px) {
+    .az-contenedor {
+        min-height: 100vh;
+        height: calc(100vh + 25rem);
+    }
+
+    .az-contenedor .form-container {
+        top: 9rem !important;
+        left: 1rem;
+        width: 385px;
+    }
+    .nav-tabs > li.nav-item {
+        padding: 0;
+        width: 13.5rem;
+    }
 }
 /* End::Inscripción*/
 
@@ -506,7 +494,8 @@ h2.maquina .linea {
 .az-modal .btn-cancelar:hover {
     color: #fff;
 }
-.az-modal .btn-next {
+.az-modal .btn-next,
+a.btn-next {
     border-radius: 1rem;
     transform: translateY(-3px);
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
@@ -529,11 +518,11 @@ h2.maquina .linea {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgb(55, 40, 24); /* Fondo oscuro semi-transparente */
+    background-color: rgb(55, 40, 24);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Asegura que el loader esté por encima del contenido */
+    z-index: 9999;
 }
 .loader {
     width: 100px;
@@ -655,11 +644,6 @@ h2.maquina .linea {
     margin-right: 5rem;
 }
 
-@media only screen and (max-width: 768px) {
-    .wrapper .form_logo {
-        left: 11px;
-    }
-}
 .count_box {
     width: 23rem !important;
 }
@@ -680,6 +664,13 @@ h2.maquina .linea {
 }
 .progress .progress-bar {
     position: relative;
+}
+
+.wrapper .step_box_text {
+    user-select: none;
+}
+.step_area_fixed {
+    position: absolute !important;
 }
 @media screen and (max-width: 1199.98px) {
     .wrapper .multisteps_form {
@@ -822,14 +813,40 @@ h2.maquina .linea {
         margin: 2rem 0;
     }
 }
+@media only screen and (max-width: 768px) {
+    .wrapper .form_logo {
+        left: 11px;
+    }
+}
+@media (max-width: 992px) {
+    .mobile-logo {
+        width: 4rem !important;
+        height: 4rem !important;
+    }
 
-.wrapper .step_box_text {
-    user-select: none;
+    .az-bottom-0px {
+        bottom: 19rem !important;
+        left: 8rem;
+        opacity: 0.3;
+    }
+
+    .az-text-banner {
+        color: rgb(182, 175, 175);
+    }
+
+    .az-span {
+        display: block;
+    }
+    .az-resultados .form-container {
+        width: 33rem !important;
+    }
+    .title {
+        padding: 2rem;
+    }
 }
-.step_area_fixed {
-    position: absolute !important;
-}
+
 /* End::TestSovi*/
+
 /* Begin::resultados */
 .table-bordered > :not(caption) > * > * {
     padding: 1rem;
@@ -837,11 +854,11 @@ h2.maquina .linea {
 }
 .az-info {
     position: relative;
-    padding-left: 10px; /* Ajusta según sea necesario */
-    padding-right: 10px; /* Ajusta según sea necesario */
+    padding-left: 0; /* Ajusta según sea necesario */
+    padding-right: 0; /* Ajusta según sea necesario */
 }
-.az-info::before,
-.az-info::after {
+.az-info::before
+/* .az-info::after { */ {
     content: "";
     position: absolute;
     width: 1px; /* Ancho del borde */
@@ -855,29 +872,61 @@ h2.maquina .linea {
 }
 .az-info::after {
     right: 0;
-    top: 50%; /* Centra verticalmente */
+    top: 50%;
     transform: translateY(-50%);
 }
 
 /* End::resultados */
 .az-resultados .title {
-    position: absolute;
-    z-index: 2;
-    bottom: 47rem;
     font-size: 1.5rem;
+    margin-top: 8rem;
+    margin-bottom: 2rem;
 }
 .az-resultados .form-container {
     width: 75rem;
     padding-top: 8px;
     top: 2rem;
 }
-
+.az-contenedor.az-resultados {
+    align-items: normal;
+}
+.az-resultados .form-container.az-table {
+    position: static;
+    margin: 0 auto;
+}
+.az-table table {
+    width: 100%;
+}
+.form-container.az-footer {
+    position: static;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+.logo-upea {
+    bottom: 21rem;
+    left: 5.5rem;
+}
+.logo-edu {
+    left: 91rem;
+    bottom: 20rem;
+}
 @media (max-width: 1500px) {
+    .logo-upea {
+        bottom: 13rem;
+        left: 3.5rem;
+    }
+    .logo-edu {
+        left: 72rem;
+        bottom: 13rem;
+    }
     .az-resultados .title {
-        bottom: 83rem;
+        /* bottom: 83rem;
         font-size: 1.3rem;
         color: #dfdcdc;
-        padding: 1rem;
+        padding: 1rem; */
     }
     .az-resultados .form-container {
         width: 66rem;
@@ -885,7 +934,7 @@ h2.maquina .linea {
         left: 2rem;
     }
     .az-resultados {
-        height: calc(100vh + 40rem);
+        /* height: calc(100vh + 40rem); */
     }
     .table-bordered > :not(caption) > * > * {
         padding: 0 10px 0 10px;
@@ -898,8 +947,9 @@ h2.maquina .linea {
         height: 6rem; /* Altura del borde */
     }
     .az-table {
-        height: 42rem;
-        overflow-x: auto;
+        /* margin-top: 10rem; */
+        /* height: 42rem;
+        overflow-x: auto; */
     }
 }
 
@@ -908,7 +958,16 @@ h2.maquina .linea {
     /* Estilos para dispositivos extra grandes y superiores */
 }
 .table-container {
+    margin-top: 1rem;
     height: inherit;
     width: 100%; /* Ancho del contenedor, puedes ajustarlo según tus necesidades */
     overflow: auto; /* Agrega scroll si es necesario */
+}
+
+.navbar-toggler {
+    /* width: 30px; */
+    height: 6px;
+}
+.popup-youtube span {
+    color: #fff !important;
 }

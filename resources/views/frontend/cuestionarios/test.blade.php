@@ -1,11 +1,3 @@
-<!-- <php echo '<pre>';
-    print_r($listar);
-    echo '</pre>';
-    exit();
-    ?> -->
-
-
-
 @extends('frontend.app')
 @section('content')
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&amp;family=Lato&amp;display=swap"
@@ -86,7 +78,6 @@
                 <div class="col-md-8 az-section">
                     <form class="multisteps_form" id="wizard" method="POST" action="{{ route('resultado') }}">
                         @csrf
-                        <button type="submit" class="btn btn-primary">Button</button>
                         <input type="hidden" value="1" name="id_test">
                         <!-- <button type="submit" class="btn btn-primary">Button</button> -->
                         <div class="multisteps_form_panel active">
@@ -120,7 +111,7 @@
                         </div>
                         {{-- <button type="submit" class="btn btn-primary">Button</button> --}}
                         @foreach ($data['preguntas'] as $key => $item)
-                            <div class="multisteps_form_panel active">
+                            <div class="multisteps_form_panel">
                                 <div class="form_content">
                                     <div class="step_content d-flex justify-content-between pt-5 pb-2">
                                         <h4>TEST DE ORIENTACIÓN VOCACIONAL {{ $data['title'] }}</h4>

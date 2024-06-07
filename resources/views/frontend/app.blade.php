@@ -11,7 +11,7 @@
     <meta name="keywords" content="" />
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
-
+    <link href="{{ asset('/plantilla-test/assets/images/logo/ov-logo.ico') }}" rel="icon">
     <link rel="shortcut icon" href="{{ asset('/plantilla-test/assets/images/logo/ov-logo.ico') }}" />
     <link rel="stylesheet" href="{{ asset('assets/main/css/vendors.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/main/css/icon.min.css') }}" />
@@ -37,17 +37,20 @@
 
         {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
-        </script>
+        </script> --}}
         <script src="{{ asset('frontend/js/global.scripts.js') }}"></script>
+        @if ($page !== 'resultado')
+            <script src="{{ asset('frontend/js/particleInit.js') }}"></script>
+        @endif
     @endif
     <script src="{{ asset('material-dashboard/assets/js/plugins/sweetalert.min.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('assets/main/js/vendors.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/main/js/main.js') }}"></script>
 
-    @if ($page)
+    @if ($page && $page !== 'resultado')
         {{-- @vite('public/backend/js/' . $page . '/index.js') --}}
         <script src="{{ asset('frontend/js/' . $page . '.js') }}" type="module"></script>
     @endif

@@ -14,10 +14,14 @@ use App\Models\ResultadoModel;
 use App\Models\Territoriales\DepartamentoModel;
 use App\Models\Territoriales\MunicipioModel;
 use App\Models\Territoriales\ProvinciaModel;
+use App\Models\TestModel;
+use App\Models\VideoModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+
+
 
 class TestController extends FrontendController
 {
@@ -32,28 +36,47 @@ class TestController extends FrontendController
         $this->page = 'admin-test';
         $this->data['title'] = 'CUESTIONARIO DE INTERESES PROFESIONALES';
         $this->data['preguntas'] = PreguntaModel::where('estado', '1')->get();
-        // var_dump($this->data['preguntas'][0]);
         return $this->render('cuestionarios.test');
+    }
+    public function pruebas()
+    {
+        $this->page = 'admin-test';
+        $this->data['title'] = 'CUESTIONARIO DE INTERESES PROFESIONALES';
+        $this->data['preguntas'] = PreguntaModel::where('estado', '1')->get();
+        return $this->render('cuestionarios.test-prueba');
     }
     public function main()
     {
         $this->page = '';
-        // $this->data['preguntas'] = PreguntaModel::where('estado', '1')->get();
-        // var_dump($this->data['preguntas'][0]);
+        $this->data['videos'] = VideoModel::where('estado', '1')->where('tipo', 'T')->get();
         return $this->render('index');
     }
     public function historialEstudiante()
     {
+        $idEstudiante = Session::get('id_estudiante');
+        $this->data['estudiante'] = EstudianteModel::select('*')
+            ->selectRaw("CONCAT_WS(' ', p.nombre, p.paterno, IFNULL(p.materno, '')) as nombre_completo")
+            ->selectRaw("CONCAT_WS(' ', p.paterno, IFNULL(p.materno, '')) as apellidos")
+            ->from('estudiantes as e')
+            ->where('e.estado', '1')
+            ->where('e.id_estudiante', (int)$idEstudiante)
+            ->leftJoin('personas as p', 'p.id_persona', '=', 'e.id_persona')
+            ->leftJoin('colegios as c', 'c.id_colegio', '=', 'e.id_colegio')
+            ->orderBy('e.id_estudiante', 'desc')
+            ->first();
+
+        $this->data['respuestas'] =  ResultadoModel::where('id_estudiante', $idEstudiante)
+            ->leftJoin('tests as t', 't.id_test', '=', 'resultados.id_test')
+            ->orderBy('id_respuesta', 'desc')
+            ->get();
+        // dd($this->data['respuestas'][0]);    
         return $this->render('historial');
     }
     public function registrarEstudiante(Request $request)
     {
         $this->page = '';
-        // echo 'registrarse';
         $data = DepartamentoModel::get();
         $this->data['departamentos'] = $data;
-
-        // $data = PersonaModel::select('*')->selectRaw("CONCAT_WS(' ', nombre, paterno, IFNULL(materno, '')) as nombre_completo")->where('estado', '1')->orderBy('id_persona', 'desc')->get();
         if (request()->ajax()) {
             $validator = Validator::make($request->all(), [
                 'ci' => 'required|unique:personas,ci',
@@ -90,8 +113,6 @@ class TestController extends FrontendController
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
-            // return  $estudiante;
-            // $this->render('cuestionarios.test', ['message' => 'Registro exitoso']);
             Session::put('id_estudiante', $estudiante);
             return response()->json(["message" => "Registro exitoso"], 200);
         }
@@ -99,6 +120,8 @@ class TestController extends FrontendController
     }
     public function registrarRespuesta(Request $request)
     {
+        $this->page = 'resultado';
+        //Seleccionamos estudiante
         $idEstudiante = Session::get('id_estudiante');
         $this->data['estudiante'] = EstudianteModel::select('*')
             ->selectRaw("CONCAT_WS(' ', p.nombre, p.paterno, IFNULL(p.materno, '')) as nombre_completo")
@@ -111,67 +134,66 @@ class TestController extends FrontendController
             ->orderBy('e.id_estudiante', 'desc')
             ->first();
         $baremo = new BaremoModel();
+        $test = new TestModel();
 
-        // echo $this->data['estudiante'];
-        // die($this->data['estudiante']->nombre);
-
-        $sum_cal = array_sum($request->preguntas[1]);
-        $sum_cie = array_sum($request->preguntas[2]);
-        $sum_dis = array_sum($request->preguntas[3]);
-        $sum_tec = array_sum($request->preguntas[4]);
-        $sum_geo = array_sum($request->preguntas[5]);
-        $sum_nat = array_sum($request->preguntas[6]);
-        $sum_san = array_sum($request->preguntas[7]);
-        $sum_asi = array_sum($request->preguntas[8]);
-        $sum_jur = array_sum($request->preguntas[9]);
-        $sum_eco = array_sum($request->preguntas[10]);
-        $sum_com = array_sum($request->preguntas[11]);
-        $sum_hum = array_sum($request->preguntas[12]);
-        $sum_art = array_sum($request->preguntas[13]);
-        $sum_mus = array_sum($request->preguntas[14]);
-        $sum_lin = array_sum($request->preguntas[15]);
-
-        $resultado = ResultadoModel::create([
-            'id_estudiante' => $request->id_estudiante ?? 12,
-            'tiempo' => $request->tiempo,
-            'id_test' => $request->id_test,
-            'pts_cal' => $sum_cal,
-            'pts_cie' => $sum_cie,
-            'pts_dis' => $sum_dis,
-            'pts_tec' => $sum_tec,
-            'pts_geo' => $sum_geo,
-            'pts_nat' => $sum_nat,
-            'pts_san' => $sum_san,
-            'pts_asi' => $sum_asi,
-            'pts_jur' => $sum_jur,
-            'pts_eco' => $sum_eco,
-            'pts_com' => $sum_com,
-            'pts_hum' => $sum_hum,
-            'pts_art' => $sum_art,
-            'pts_mus' => $sum_mus,
-            'pts_lin' => $sum_lin,
-            "pctl_cal" => $baremo->getValueBaremoBySum($sum_cal, 1)->percentil ?? 0,
-            "pctl_cie" => $baremo->getValueBaremoBySum($sum_cie, 2)->percentil ?? 0,
-            "pctl_dis" => $baremo->getValueBaremoBySum($sum_dis, 3)->percentil ?? 0,
-            "pctl_tec" => $baremo->getValueBaremoBySum($sum_tec, 4)->percentil ?? 0,
-            "pctl_geo" => $baremo->getValueBaremoBySum($sum_geo, 5)->percentil ?? 0,
-            "pctl_nat" => $baremo->getValueBaremoBySum($sum_nat, 6)->percentil ?? 0,
-            "pctl_san" => $baremo->getValueBaremoBySum($sum_san, 7)->percentil ?? 0,
-            "pctl_asi" => $baremo->getValueBaremoBySum($sum_asi, 8)->percentil ?? 0,
-            "pctl_jur" => $baremo->getValueBaremoBySum($sum_jur, 9)->percentil ?? 0,
-            "pctl_eco" => $baremo->getValueBaremoBySum($sum_eco, 10)->percentil ?? 0,
-            "pctl_com" => $baremo->getValueBaremoBySum($sum_com, 11)->percentil ?? 0,
-            "pctl_hum" => $baremo->getValueBaremoBySum($sum_hum, 12)->percentil ?? 0,
-            "pctl_art" => $baremo->getValueBaremoBySum($sum_art, 13)->percentil ?? 0,
-            "pctl_mus" => $baremo->getValueBaremoBySum($sum_mus, 14)->percentil ?? 0,
-            "pctl_lin" => $baremo->getValueBaremoBySum($sum_lin, 15)->percentil ?? 0,
-        ]);
-
-
-        // var_dump($resultado['pctl_cal']);
-        // $respuesta
-        // $this->data['$resultado'] = [90, 40, 80, 60, 75, 70, 75, 70, 50, 60, 80, 70, 70, 60, 50];
-        $this->data['$resultado'] = $resultado;
+        //obtenemos las sumas por area
+        $resultado = '';
+        if (!$request->id_respuesta) {
+            $sum_cal = array_sum($request->preguntas[1] ?? 0);
+            $sum_cie = array_sum($request->preguntas[2] ?? 0);
+            $sum_dis = array_sum($request->preguntas[3] ?? 0);
+            $sum_tec = array_sum($request->preguntas[4] ?? 0);
+            $sum_geo = array_sum($request->preguntas[5] ?? 0);
+            $sum_nat = array_sum($request->preguntas[6] ?? 0);
+            $sum_san = array_sum($request->preguntas[7] ?? 0);
+            $sum_asi = array_sum($request->preguntas[8] ?? 0);
+            $sum_jur = array_sum($request->preguntas[9] ?? 0);
+            $sum_eco = array_sum($request->preguntas[10] ?? 0);
+            $sum_com = array_sum($request->preguntas[11] ?? 0);
+            $sum_hum = array_sum($request->preguntas[12] ?? 0);
+            $sum_art = array_sum($request->preguntas[13] ?? 0);
+            $sum_mus = array_sum($request->preguntas[14] ?? 0);
+            $sum_lin = array_sum($request->preguntas[15] ?? 0);
+            //Guardamos los resultados obtenidos
+            $resultado = ResultadoModel::create([
+                'id_estudiante' => $idEstudiante ?? null,
+                'tiempo' => $request->tiempo,
+                'id_test' => $request->id_test,
+                'pts_cal' => $sum_cal,
+                'pts_cie' => $sum_cie,
+                'pts_dis' => $sum_dis,
+                'pts_tec' => $sum_tec,
+                'pts_geo' => $sum_geo,
+                'pts_nat' => $sum_nat,
+                'pts_san' => $sum_san,
+                'pts_asi' => $sum_asi,
+                'pts_jur' => $sum_jur,
+                'pts_eco' => $sum_eco,
+                'pts_com' => $sum_com,
+                'pts_hum' => $sum_hum,
+                'pts_art' => $sum_art,
+                'pts_mus' => $sum_mus,
+                'pts_lin' => $sum_lin,
+                "pctl_cal" => $baremo->getValueBaremoBySum($sum_cal, 1)->percentil ?? 0,
+                "pctl_cie" => $baremo->getValueBaremoBySum($sum_cie, 2)->percentil ?? 0,
+                "pctl_dis" => $baremo->getValueBaremoBySum($sum_dis, 3)->percentil ?? 0,
+                "pctl_tec" => $baremo->getValueBaremoBySum($sum_tec, 4)->percentil ?? 0,
+                "pctl_geo" => $baremo->getValueBaremoBySum($sum_geo, 5)->percentil ?? 0,
+                "pctl_nat" => $baremo->getValueBaremoBySum($sum_nat, 6)->percentil ?? 0,
+                "pctl_san" => $baremo->getValueBaremoBySum($sum_san, 7)->percentil ?? 0,
+                "pctl_asi" => $baremo->getValueBaremoBySum($sum_asi, 8)->percentil ?? 0,
+                "pctl_jur" => $baremo->getValueBaremoBySum($sum_jur, 9)->percentil ?? 0,
+                "pctl_eco" => $baremo->getValueBaremoBySum($sum_eco, 10)->percentil ?? 0,
+                "pctl_com" => $baremo->getValueBaremoBySum($sum_com, 11)->percentil ?? 0,
+                "pctl_hum" => $baremo->getValueBaremoBySum($sum_hum, 12)->percentil ?? 0,
+                "pctl_art" => $baremo->getValueBaremoBySum($sum_art, 13)->percentil ?? 0,
+                "pctl_mus" => $baremo->getValueBaremoBySum($sum_mus, 14)->percentil ?? 0,
+                "pctl_lin" => $baremo->getValueBaremoBySum($sum_lin, 15)->percentil ?? 0,
+            ]);
+        } else {
+            $resultado =  ResultadoModel::where('id_respuesta', $request->id_respuesta)->first();
+        }
+        //Preparamos los datos el gráfico
         $this->data['graficoData'] = [
             $resultado["pctl_cal"],
             $resultado["pctl_cie"],
@@ -189,86 +211,13 @@ class TestController extends FrontendController
             $resultado["pctl_mus"],
             $resultado["pctl_lin"],
         ];
-        $dataRes = [];
-        // foreach ($this->data['graficoData']  as $key => $value) {
-        //     $dataRes = $cual
-        // }
-
-        if ($this->data['$resultado']['pctl_cal']  >= 75) {
-            $dataRes = array_merge($this->verArea(1), $dataRes);
-        }
-        // if ($this->data['$resultado']['pctl_cie']  >= 75) {
-        //     $dataRes = array_merge($this->verArea(2), $dataRes);
-        // }
-        if ($this->data['$resultado']['pctl_dis']  >= 75) {
-            $dataRes = array_merge($this->verArea(3), $dataRes);
-        }
-        if ($this->data['$resultado']['pctl_tec']  >= 75) {
-            $dataRes = array_merge($this->verArea(4), $dataRes);
-        }
-        if ($this->data['$resultado']['pctl_geo']  >= 75) {
-            $dataRes = array_merge($this->verArea(5), $dataRes);
-        }
-        if ($this->data['$resultado']['pctl_nat']  >= 75) {
-            $dataRes = array_merge($this->verArea(6), $dataRes);
-        }
-        if ($this->data['$resultado']['pctl_san']  >= 75) {
-            $dataRes = array_merge($this->verArea(7), $dataRes);
-        }
-        if ($this->data['$resultado']['pctl_asi']  >= 75) {
-            $dataRes = array_merge($this->verArea(8), $dataRes);
-        }
-        if ($this->data['$resultado']['pctl_jur']  >= 75) {
-            $dataRes = array_merge($this->verArea(9), $dataRes);
-        }
-        if ($this->data['$resultado']['pctl_eco']  >= 75) {
-            $dataRes = array_merge($this->verArea(10), $dataRes);
-        }
-        if ($this->data['$resultado']['pctl_com']  >= 75) {
-            $dataRes = array_merge($this->verArea(11), $dataRes);
-        }
-        if ($this->data['$resultado']['pctl_hum']  >= 75) {
-            $dataRes = array_merge($this->verArea(12), $dataRes);
-        }
-        if ($this->data['$resultado']['pctl_art']  >= 75) {
-            $dataRes = array_merge($this->verArea(13), $dataRes);
-        }
-        if ($this->data['$resultado']['pctl_mus']  >= 75) {
-            $dataRes = array_merge($this->verArea(14), $dataRes);
-        }
-        if ($this->data['$resultado']['pctl_lin']  >= 75) {
-            $dataRes = array_merge($this->verArea(15), $dataRes);
-        }
-        $this->data['sugerencias'] = $dataRes;
-        // var_dump($dataRes);
-        // foreach ($this->data['sugerencias'] as $key => $value) {
-        //     # code...
-
-        //     foreach ($value as $key => $v) {
-        //         echo $v->carrera;
-        //     }
-        // }
-
-        // var_dump($this->data['sugerencias']);
-
-
-
+        // dd($resultado);
+        // dd($resultado->id_resultado);
+        Session::put('id_respuesta', $resultado->id_resultado);
+        //Preparamos los datos para mostrar los resultados
+        $this->data['resultados'] = $test->getResultados($resultado);
 
         return $this->render('resultado');
-    }
-    public function verArea($id)
-    {
-        $dataRes = [];
-        $dataRes = AreaModel::select('c.carrera as carrera', 'areas.nombre as area', 'ae.nombre as area_existente')->leftJoin('carreras as c', 'areas.id_area', '=', 'c.id_area')
-            ->join('areas_existentes as ae', 'ae.id_area_existente', '=', 'c.id_area_existente')
-            ->where('areas.id_area', $id)
-            ->get();
-        // $data = [
-        //     // $dataRes['area'] => ['area_existente' => [$dataRes['area_existente'], []]]
-        //     $dataRes['area'] => [$this->getCarreras($dataRes)]
-        // ];
-        // var_dump()
-        return [$dataRes];
     }
     public function getCarreras($data)
     {
@@ -291,7 +240,7 @@ class TestController extends FrontendController
                 $data = MunicipioModel::where('id_provincia', $id)->get();
                 break;
             case 'colegios':
-                $data = ColegioModel::where('id_municipio', $id)->get();
+                $data = ColegioModel::where('id_municipio', $id)->orderBy('id_colegio', 'desc')->get();
                 break;
             default:
                 break;

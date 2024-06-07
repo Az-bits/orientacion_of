@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\Territoriales\DepartamentoController;
 use App\Http\Controllers\Backend\Territoriales\MunicipioController;
 use App\Http\Controllers\Backend\Territoriales\ProvinciaController;
 use App\Http\Controllers\Backend\TestController;
+use App\Http\Controllers\Backend\VideoController;
 // use App\Http\Controllers\TestingController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('area', AreaController::class)->names('admin-area');
     Route::resource('carrera', CarreraController::class)->names('admin-carrera');
     Route::resource('area-existente', AreaExistenteController::class)->names('admin-area-existente');
+
+    Route::resource('video', VideoController::class)->names('admin-video');
+    // Route::resource('video-tutorial', AreaExistenteController::class)->names('admin-video-tutorial');
 
     Route::get('baremo', [TestController::class, 'baremo'])->name('baremo');
 });

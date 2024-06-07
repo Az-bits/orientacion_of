@@ -5,8 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
     <link rel="stylesheet" href="{{ asset('frontend/css/global.styles.css') }}">
 
@@ -33,14 +32,11 @@
                             aria-controls="datos-personales" aria-selected="true">Datos Personales</button>
                     </li> --}}
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="datos-colegio-tab" data-bs-toggle="tab"
-                            data-bs-target="#datos-colegio" type="button" role="tab" aria-controls="datos-colegio"
-                            aria-selected="false">Datos de Colegio</button>
+                        <button class="nav-link" id="datos-colegio-tab" data-bs-toggle="tab" data-bs-target="#datos-colegio" type="button" role="tab" aria-controls="datos-colegio" aria-selected="false">Datos de Colegio</button>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade active show" id="datos-personales" role="tabpanel"
-                        aria-labelledby="datos-personales-tab">
+                    <div class="tab-pane fade active show" id="datos-personales" role="tabpanel" aria-labelledby="datos-personales-tab">
                         <div class="row" id="date-student">
                             <div class="col-12">
                                 <div class="form-group">
@@ -87,8 +83,7 @@
                             <span>Siguiente</span>
                             <div class="svg-wrapper-1">
                                 <div class="svg-wrapper">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
-                                        height="24">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                                         <path fill="none" d="M0 0h24v24H0V0z" />
                                         <path fill="currentColor" d="M10 17l5-5-5-5v10zm0 0l5-5-5-5v10z" />
                                     </svg>
@@ -104,8 +99,8 @@
                                     <select class="form-select" id="departamento" name="departamento">
                                         <option disabled selected hidden>[SELECCIONE]</option>
                                         @foreach ($data['departamentos'] as $item)
-                                            <option value="{{ $item->id_departamento }}">{{ $item->departamento }}
-                                            </option>
+                                        <option value="{{ $item->id_departamento }}">{{ $item->departamento }}
+                                        </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -132,16 +127,12 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="active mt-2" id="btn-submit" data-bs-toggle="tab"
-                            data-bs-target="#datos-personales-pane" type="button" role="tab"
-                            aria-controls="datos-personales-pane" aria-selected="true">
+                        <button class="active mt-2" id="btn-submit" data-bs-toggle="tab" data-bs-target="#datos-personales-pane" type="button" role="tab" aria-controls="datos-personales-pane" aria-selected="true">
                             <div class="svg-wrapper-1">
                                 <div class="svg-wrapper">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
-                                        height="24">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                                         <path fill="none" d="M0 0h24v24H0z"></path>
-                                        <path fill="currentColor"
-                                            d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z">
+                                        <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z">
                                         </path>
                                     </svg>
                                 </div>
@@ -157,8 +148,7 @@
     <script src="{{ asset('material-dashboard/assets/js/core/jquery.min.js') }}"></script>
     <script src="{{ asset('material-dashboard/assets/js/plugins/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('material-dashboard/assets/js/plugins/fullcalendar.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
     </script>
 
     <script src="{{ asset('frontend/js/global.scripts.js') }}"></script>

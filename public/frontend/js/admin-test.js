@@ -1,11 +1,7 @@
 $(document).ready(function () {
     let tiempo = "00:22:11";
-    // Controlador de evento clic para el botón de iniciar
     $("#iniciar").click(function () {
-        // Obtener el elemento del contador
         var $contador = $(".timer");
-
-        // Iniciar el contador
         iniciarContador($contador);
     });
     Swal.fire({
@@ -15,15 +11,9 @@ $(document).ready(function () {
     });
 
     $("#wizard").submit(function (event) {
-        // alert();
-        // Agregar campos adicionales
         $("#wizard").append(
             `<input type="hidden" name="tiempo" value="${tiempo}">`
         );
-        // $("#test-main").append(
-        //     '<input type="hidden" name="campo_extra_2" value="valor_extra_2">'
-        // );
-        // // Permitir que el formulario se envíe normalmente
         return true;
     });
     function iniciarContador($contador) {

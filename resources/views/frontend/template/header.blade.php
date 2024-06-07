@@ -20,6 +20,10 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown simple-dropdown">
+                            <a href="javascript:void(0)" class="nav-link" id="historial">HISTORIAL DE PRUEBAS</a>
+                            <i class="fa-solid fa-building-columns"></i>
+                        </li>
+                        <li class="nav-item dropdown simple-dropdown">
                             <a href="https://www.upea.bo/" target="_blank" class="nav-link">UPEA</a>
                             <i class="fa-solid fa-building-columns"></i>
                         </li>
@@ -42,3 +46,31 @@
         </div>
     </nav>
 </header>
+<div class="modal fade az-modal" id="modal-historial" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title fs-5" id="modal-title">HISTORIAL</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <p class="m-0 text-warning">Ingrese su cedula de identidad para ver sus pruebas:</p>
+
+            <div class="modal-body p-0">
+                <div class="row" id="date-student">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="ci2">Cedula de Identidad</label>
+                            <input name="ci2" id="ci2" type="text" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-transparent btn-cancelar"
+                    data-bs-dismiss="modal">cancelar</button>
+                <button type="button" class="btn btn-next historial">Ingresar</button>
+            </div>
+        </div>
+    </div>
+</div>

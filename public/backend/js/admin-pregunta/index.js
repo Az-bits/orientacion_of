@@ -141,6 +141,7 @@ $(document).ready(function () {
                 // return;
                 modalEl.modal("hide");
                 $("#datatable").DataTable().ajax.reload();
+                az.showSwal("success-message", null, d.message);
             },
             error: function (data) {
                 // console.log(data);

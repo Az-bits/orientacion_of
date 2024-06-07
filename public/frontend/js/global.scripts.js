@@ -1,13 +1,49 @@
 $(document).ready(function () {
     // alert();
-    let btnNext = $(".btn-next");
+    let btnNext = $(".cedula");
+    let historial = $(".historial");
     let btnOpen = $(".open");
+    let btnHistorial = $("#historial");
     let modalCI = $("#modal-ci");
+    let modalHist = $("#modal-historial");
     let modalTitle = $("#modal-title");
 
     btnOpen.click(function () {
         modalCI.modal("show");
         modalTitle.text($(this).find(".btn-double-text").text());
+    });
+    btnHistorial.click(function () {
+        modalHist.modal("show");
+        modalTitle.text("historial");
+    });
+    historial.click(function () {
+        let ci2 = $("#ci2").val();
+        $.ajax({
+            url: `/buscarEstudiante/${ci2}`,
+            method: "GET",
+            success: function (r) {
+                // ? (window.location.href = "/registrarse")
+                // : // : (window.location.href = `/perfil/${ci}`);
+                //   (window.location.href = `/test/sovi3`);
+
+                if (r == 0) {
+                    Swal.fire({
+                        title: "!Usted no se encuentra registrado!",
+                        text: "¿Quiere hacerlo?",
+                        icon: "success",
+                        html: '<a class="btn btn-next" href="/registrarse">Registrarse</a>',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: "No gracias",
+                    });
+                } else {
+                    window.location.href = `/historial`;
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error en la petición AJAX:", error);
+            },
+        });
     });
 
     btnNext.click(function () {
@@ -35,116 +71,6 @@ $(window).on("load", function () {
  * Begin::Registrarse Js
  */
 $(document).ready(function () {
-    particlesJS({
-        particles: {
-            number: {
-                value: 43,
-                density: {
-                    enable: true,
-                    value_area: 800,
-                },
-            },
-            color: {
-                value: "#ffffff",
-            },
-            shape: {
-                type: "circle",
-                stroke: {
-                    width: 0,
-                    color: "#000000",
-                },
-                polygon: {
-                    nb_sides: 5,
-                },
-                image: {
-                    src: "img/github.svg",
-                    width: 100,
-                    height: 100,
-                },
-            },
-            opacity: {
-                value: 0.5,
-                random: false,
-                anim: {
-                    enable: false,
-                    speed: 1,
-                    opacity_min: 0.1,
-                    sync: false,
-                },
-            },
-            size: {
-                value: 3,
-                random: true,
-                anim: {
-                    enable: false,
-                    speed: 40,
-                    size_min: 0.1,
-                    sync: false,
-                },
-            },
-            line_linked: {
-                enable: true,
-                distance: 150,
-                color: "#ffffff",
-                opacity: 0.4,
-                width: 1,
-            },
-            move: {
-                enable: true,
-                speed: 6,
-                direction: "none",
-                random: false,
-                straight: false,
-                out_mode: "out",
-                bounce: false,
-                attract: {
-                    enable: false,
-                    rotateX: 600,
-                    rotateY: 1200,
-                },
-            },
-        },
-        interactivity: {
-            detect_on: "canvas",
-            events: {
-                onhover: {
-                    enable: true,
-                    mode: "repulse",
-                },
-                onclick: {
-                    enable: true,
-                    mode: "push",
-                },
-                resize: true,
-            },
-            modes: {
-                grab: {
-                    distance: 400,
-                    line_linked: {
-                        opacity: 1,
-                    },
-                },
-                bubble: {
-                    distance: 400,
-                    size: 40,
-                    duration: 2,
-                    opacity: 8,
-                    speed: 3,
-                },
-                repulse: {
-                    distance: 200,
-                    duration: 0.4,
-                },
-                push: {
-                    particles_nb: 4,
-                },
-                remove: {
-                    particles_nb: 2,
-                },
-            },
-        },
-        retina_detect: true,
-    });
     // $('#ci').val('12345');
     // $('#nombres').val('Edwin');
     // $('#apellidos').val('Alanoca Ramirez');

@@ -110,12 +110,14 @@ class Controller extends BaseController
                 "areas" => "admin-area",
                 // "roles" => "admin-persona",
             ],
-            "gestión territorial" => [
+            "colegios" => [
+                "Colegios" => "admin-colegio",
                 "Departamentos" => "admin-departamento",
                 "Provincias" => "admin-provincia",
                 "Municipios" => "admin-municipio",
                 // "roles" => "admin-persona",
             ],
+            "videos" => 'admin-video',
             "baremo" => 'baremo',
             "personas" => 'admin-persona',
 
@@ -143,9 +145,10 @@ class Controller extends BaseController
             'areas' => 'library_add',
             'entidades' => 'location_city',
             "tests" => 'app_registration',
-            "gestión territorial" => 'public',
+            "colegios" => 'public',
             "areas carreras" => 'school',
-            "baremo" => 'format_list_numbered'
+            "baremo" => 'format_list_numbered',
+            "videos" => 'play_circle'
         ];
         return $iconos;
     }

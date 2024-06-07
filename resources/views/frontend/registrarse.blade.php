@@ -2,7 +2,13 @@
 @section('content')
     <style>
         footer {
-            top: 63rem;
+            top: 64rem;
+        }
+
+        @media (max-width: 992px) {
+            footer {
+                top: 90rem;
+            }
         }
     </style>
     <div class="loader-container">
@@ -11,7 +17,7 @@
         </div>
     </div>
     <div id="particles-js" class="az-contenedor" style="background: #000;">
-        <img src="https://orientacionvocacionaledu.upea.bo/assets_/form/img/fondo.jpg" alt="">
+        <img src="{{ asset('assets/images/banner6.jpg') }}" alt="" style="top: 0rem;">
         <div class="form-container">
             <form class="form" id="form-main">
                 @csrf

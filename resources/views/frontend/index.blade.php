@@ -12,17 +12,17 @@
             <div class="row align-items-start justify-content-center h-100 text-center">
                 <div class="col-xl-10 col-lg-12 position-relative z-index-2">
                     <div>
-                        <h2 class="maquina fw-500 ls-minus-1px mb-20px text-white w-80 xl-w-90 md-w-100 mx-auto mt-2">
+                        <h2 class="maquina fw-600 ls-minus-1px mb-20px text-white w-80 xl-w-90 md-w-100 mx-auto mt-2">
                             <span class="linea">
-                                <span>Test de</span><br class="az-span" />
-                                <span>Orientación</span><br />
-                                <span>Vocacional</span><br class="az-span" />
+                                <span>TEST DE</span><br class="az-span" />
+                                <span>ORIENTACIÓN</span><br />
+                                <span>VOCACIONAL</span><br class="az-span" />
                                 {{-- <span>CHASIDES</span><br /> --}}
                             </span>
                         </h2>
                     </div>
                     <div class="fs-21 lh-32 lg-w-90 mx-auto az-text-banner w-65">
-                        El Cuestionario de Intereses Profesionales (CIP-R) contiene 114 preguntas acerca de las Carreras que
+                        El Cuestionario de Intereses Profesionales (CIP-R) contiene 114 preguntas acerca de las carreras que
                         debes responder según tu agrado, desagrado o indiferencia.
                     </div>
                     <div class="mt-35px position-relative z-index-9">
@@ -49,32 +49,51 @@
                         </a>
                     </div>
                     <div class="mt-35px position-relative z-index-9">
-                        <a href="https://www.youtube.com/watch?v=by5cRoUaLtk"
-                            class="btn btn-transparent-light-gray border-1 btn-extra-large btn-rounded fw-500 ls-0px btn-switch-text mb-0 xs-mb-20px section-link popup-youtube">
-                            <span>
-                                <span class="btn-double-text" data-text="Video Tutorial">Video Tutorial</span>
+                        <a href="javascript:void(0)"
+                            class="btn btn-transparent-light-gray border-1 btn-extra-large btn-rounded fw-500 ls-0px btn-switch-text mb-0 xs-mb-20px section-link"
+                            id="toggleButton">
+                            <span style="color: #fff">
+                                <span class="btn-double-text" data-text="Videos Tutoriales">Videos Tutoriales</span>
                                 <span><i class="bi bi-play-circle-fill"></i></span>
                             </span>
                         </a>
+                    </div>
+                    <div class="mt-35px position-relative z-index-9 submenu" id="submenu" style="display: none">
+                        @foreach ($data['videos'] as $item)
+                            <a href="{{ $item->enlace }}"
+                                class="btn btn-transparent-light-gray border-1 btn-extra-large btn-rounded fw-500 ls-0px btn-switch-text mb-0 xs-mb-20px section-link popup-youtube">
+                                <span>
+                                    <span class="btn-double-text" data-text="{{ $item->titulo }}">{{ $item->titulo }}</span>
+                                    <span><i class="bi bi-play-circle-fill"></i></span>
+                                </span>
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
         <img width="300px" height="300px" src="{{ asset('assets/main/images/upeaLogo.png') }}"
-            class="position-absolute top-45 left-100px lg-left-0px z-index-1 animation-float d-lg-block d-none" alt
-            data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)"
-            style="bottom: 9rem;" />
+            class="logo-upea position-absolute top-45 left-100px lg-left-0px z-index-1 animation-float d-lg-block d-none"
+            alt data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)" />
         <img width="300px" height="300px" src="{{ asset('assets/main/images/logo-edu.jpg') }}"
-            class="position-absolute top-45 left-100px lg-left-0px z-index-1 animation-float d-lg-block d-none" alt
-            data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)"
-            style="bottom: 9rem; left: 89rem;" />
+            class="logo-edu position-absolute top-45 left-100px lg-left-0px z-index-1 animation-float d-lg-block d-none" alt
+            data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)" />
         <div class="position-absolute bottom-0 h-100 left-0px w-100 full-screen z-index-minus-1 cover-background bg-dark-gray"
             style="
           background-image: url('');
         ">
         </div>
     </section>
-
+    <script>
+        document.getElementById('toggleButton').addEventListener('click', function() {
+            const submenu = document.getElementById('submenu');
+            if (submenu.style.display === 'none' || submenu.style.display === '') {
+                submenu.style.display = 'block';
+            } else {
+                submenu.style.display = 'none';
+            }
+        });
+    </script>
     <div class="loader-container">
         <div class="loader">
             <span>Cargando...</span>
@@ -305,7 +324,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-transparent btn-cancelar"
                         data-bs-dismiss="modal">cancelar</button>
-                    <button type="button" class="btn btn-next ">Ingresar</button>
+                    <button type="button" class="btn btn-next cedula">Ingresar</button>
                 </div>
             </div>
         </div>

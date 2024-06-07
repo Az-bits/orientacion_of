@@ -14,9 +14,17 @@
     line-height: 1.5;
     font-size: 0.875rem !important;
 }
+.preview-video {
+    height: 250px;
+}
 @media (min-width: 576px) {
     .mt-sm-6 {
         margin-top: 2.5rem !important;
+    }
+}
+@media (max-width: 576px) {
+    .preview-video {
+        height: auto;
     }
 }
 .dt-empty {
